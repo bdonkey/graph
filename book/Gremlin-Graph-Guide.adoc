@@ -2,9 +2,9 @@ PRACTICAL GREMLIN: An Apache TinkerPop Tutorial
 ===============================================
 Kelvin R. Lawrence <gfxman@yahoo.com>
 //v281 (TP 3.3.5), January 28th 2019
-v283-preview, August 2nd 2021
+v283-preview, May 4th 2022
 // vim: set tw=85 cc=+1 wrap spell redrawtime=20000:
-// Mon Aug 02, 2021 14:22:17 CDT
+// Wed May 04, 2022 08:20:08 CDT
 //:Author:    Kelvin R. Lawrence
 //:Email:     gfxman@yahoo.com
 :Numbered:
@@ -25,8 +25,8 @@ v283-preview, August 2nd 2021
 :doctype: book
 :icons: font
 //:pdf-page-size: Letter
-:draftdate: August 2nd 2021
-:tpvercheck: 3.5.1
+:draftdate: May 4th 2022
+:tpvercheck: 3.5.2
 
 // NOTE1: I updated the paraiso-dark style so that source code with a style of text
 //        has a white foreground color. The default was unreadable,
@@ -344,10 +344,53 @@ removed from the Gremlin language. The newer 'Order.asc' and 'Order.desc' must b
 used instead. The examples in this book and those in the `sample-code` folder have
 been updated to reflect these changes.
 
-As always, check the level of ApacheTinkerPop the graph database you are using
-supports to make sure the features you want to use are supported.
+In January 2022, the TinkerPop 3.5.2 release added a native `datetime` operator to
+the Gremlin language such that dates can be added without needing programming
+language specific constructs. This is useful when sending Gremlin queries as text
+strings.
 
 NOTE: Full details of all the new features added in the TinkerPop 3.5.x releases can be
+found at the following link:
+https://github.com/apache/tinkerpop/blob/master/CHANGELOG.asciidoc  
+
+[[tp36intro]]
+Introducing TinkerPop 3.6
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apache TinkerPop 3.6.0 was released in April 2022. Coming almost exactly a year after
+the initial 3.5.0 release, this is one of the most significant TinkerPop releases
+since TinkerPop 3.4.0 appeared in January 2019. The release contains many
+improvements, including several new Gremlin steps, designed to make commonly
+performed tasks much easier. Notable improvements include:
+
+- New 'mergeV' and 'mergeE' steps that make "create if not exist"
+  type queries, sometimes referred to as "upserts", much easier to write. Over time,
+  these steps will replace use of the 'fold...coalesce' pattern, and will also
+  replace the various "map injection" patterns that can be used to create multiple
+  vertices and edges in a single query.
+- A new 'TextP.regex' predicate that allows regular expressions to be
+  used when comparing strings.
+- The 'property' step can now be given a map of key/value pairs so that several
+  properties can be created at once.
+- A new 'element' step that can be used to find the parent element (vertex or edge)
+  of a property.
+- A new 'call' step that lays the foundation enabling Gremlin queries to call other
+  endpoints. This opens up many types of interesting use cases such as query
+  federation, and looking up values from other services.
+- A lot of effort has been put into removing unnecessary exceptions by filtering out
+  parts of traversals instead of failing with an error. This is especially so in the
+  case of 'by' modulators that now filter when a value does not exist rather than
+  throw an exception. This work began as part of the TinkerPop 3.5.2 update and is
+  completed as of TinkerPop 3.6.0.
+- A new 'fail' step that can be used to abort a query in a controlled way.  
+
+Over time, new sections will be added to this book that cover each of these features
+in detail.
+
+As always, check the level of ApacheTinkerPop the graph database you are using
+supports before trying to use these new features.
+
+NOTE: Full details of all the new features added in the TinkerPop 3.6.x releases can be
 found at the following link:
 https://github.com/apache/tinkerpop/blob/master/CHANGELOG.asciidoc  
 
@@ -550,7 +593,8 @@ with Gremlin when entering queries into the Console or sending them via REST API
 Gremlin Server. All of these topics are covered in detail in this book.
 
 The queries used as examples in this book have been tested with Apache TinkerPop
-version 3.3. using the TinkerGraph graph and the Gremlin console as well as some
+version {tpvercheck} as well as many prior releases. Tests were performed using the 
+TinkerGraph in memory graph and the Gremlin console, as well as
 other TinkerPop 3 enabled graph stores.
 
 [[gconsole]]
